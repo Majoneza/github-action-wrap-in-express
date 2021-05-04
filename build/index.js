@@ -58,6 +58,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core = __importStar(require("@actions/core"));
 var path_1 = require("path");
 var fs_1 = require("fs");
+var process_1 = require("process");
 function getTemplate(port, main_script_path) {
     return "\n    const express = require('express');\n    const PORT = process.env.PORT || " + port + ";\n    const main = require('" + (main_script_path.startsWith('./') ? main_script_path : ('./' + main_script_path)) + "');\n\n    express()\n        .get('/', (req, res) => res.sendStatus(200))\n        .listen(PORT, () => console.log('Listening on ' + PORT));\n    ";
 }
@@ -144,9 +145,10 @@ function main() {
                 case 1:
                     _b.apply(_a, [(_f.sent()).join(', ')]);
                     _d = (_c = core).info;
-                    return [4 /*yield*/, fs_1.promises.readdir('')];
+                    return [4 /*yield*/, fs_1.promises.readdir('./')];
                 case 2:
                     _d.apply(_c, [(_f.sent()).join(', ')]);
+                    core.info(Object.keys(process_1.env).join(', '));
                     _e = getInputs(), application_path = _e[0], port = _e[1];
                     return [4 /*yield*/, checkRepository(application_path)];
                 case 3:

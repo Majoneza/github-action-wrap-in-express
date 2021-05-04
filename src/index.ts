@@ -1,6 +1,7 @@
 import * as core from '@actions/core';
 import {join} from 'path';
 import {promises} from 'fs';
+import {env} from 'process';
 
 function getTemplate(port: number, main_script_path: string): string {
     return `
@@ -58,7 +59,8 @@ async function main(): Promise<void> {
     core.info(__dirname);
     core.info(__filename);
     core.info((await promises.readdir(__dirname)).join(', '));
-    core.info((await promises.readdir('')).join(', '));
+    core.info((await promises.readdir('./')).join(', '));
+    core.info(Object.keys(env).join(', '));
     const [application_path, port] = getInputs();
     await checkRepository(application_path); // Can be removed
     const main_script_path = await modifyPackageJSON(application_path);
