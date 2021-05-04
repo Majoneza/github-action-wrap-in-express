@@ -77,7 +77,7 @@ function checkRepository(application_path) {
         var dirs;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, fs_1.promises.readdir(path_1.join(__dirname, application_path))];
+                case 0: return [4 /*yield*/, fs_1.promises.readdir(path_1.join(process_1.env.GITHUB_WORKSPACE, application_path))];
                 case 1:
                     dirs = _a.sent();
                     if (dirs.findIndex(function (value) { return value === 'package.json'; }) === -1) {
@@ -98,7 +98,7 @@ function modifyPackageJSON(application_path) {
             switch (_c.label) {
                 case 0:
                     _b = (_a = JSON).parse;
-                    return [4 /*yield*/, fs_1.promises.readFile(path_1.join(__dirname, application_path, 'package.json'), { encoding: 'utf-8', flag: 'r' })];
+                    return [4 /*yield*/, fs_1.promises.readFile(path_1.join(process_1.env.GITHUB_WORKSPACE, application_path, 'package.json'), { encoding: 'utf-8', flag: 'r' })];
                 case 1:
                     packagejson = _b.apply(_a, [_c.sent()]);
                     if (!('main' in packagejson && 'dependencies' in packagejson)) {
@@ -109,7 +109,7 @@ function modifyPackageJSON(application_path) {
                     if (!('express' in packagejson.dependencies)) {
                         packagejson.dependencies['express'] = '^4.15.2'; // Enable setting express version
                     }
-                    return [4 /*yield*/, fs_1.promises.writeFile(path_1.join(__dirname, application_path, 'package.json'), JSON.stringify(packagejson), { encoding: 'utf-8', flag: 'w' })];
+                    return [4 /*yield*/, fs_1.promises.writeFile(path_1.join(process_1.env.GITHUB_WORKSPACE, application_path, 'package.json'), JSON.stringify(packagejson), { encoding: 'utf-8', flag: 'w' })];
                 case 2:
                     _c.sent();
                     return [2 /*return*/, main_script_path];
@@ -124,7 +124,7 @@ function writeApplication(application_path, main_script_path, port) {
             switch (_a.label) {
                 case 0:
                     template = getTemplate(port, main_script_path);
-                    return [4 /*yield*/, fs_1.promises.writeFile(path_1.join(__dirname, application_path, 'index.js'), template, { encoding: 'utf-8', flag: 'x' })];
+                    return [4 /*yield*/, fs_1.promises.writeFile(path_1.join(process_1.env.GITHUB_WORKSPACE, application_path, 'index.js'), template, { encoding: 'utf-8', flag: 'x' })];
                 case 1:
                     _a.sent();
                     return [2 /*return*/];
@@ -134,31 +134,20 @@ function writeApplication(application_path, main_script_path, port) {
 }
 function main() {
     return __awaiter(this, void 0, void 0, function () {
-        var _a, _b, _c, _d, _e, application_path, port, main_script_path;
-        return __generator(this, function (_f) {
-            switch (_f.label) {
+        var _a, application_path, port, main_script_path;
+        return __generator(this, function (_b) {
+            switch (_b.label) {
                 case 0:
-                    core.info(__dirname);
-                    core.info(__filename);
-                    _b = (_a = core).info;
-                    return [4 /*yield*/, fs_1.promises.readdir(__dirname)];
-                case 1:
-                    _b.apply(_a, [(_f.sent()).join(', ')]);
-                    _d = (_c = core).info;
-                    return [4 /*yield*/, fs_1.promises.readdir('./')];
-                case 2:
-                    _d.apply(_c, [(_f.sent()).join(', ')]);
-                    core.info(Object.entries(process_1.env).map(function (value) { return value[0] + '=' + (value[1] ? value[1] : '?'); }).join(', '));
-                    _e = getInputs(), application_path = _e[0], port = _e[1];
+                    _a = getInputs(), application_path = _a[0], port = _a[1];
                     return [4 /*yield*/, checkRepository(application_path)];
-                case 3:
-                    _f.sent(); // Can be removed
+                case 1:
+                    _b.sent(); // Can be removed
                     return [4 /*yield*/, modifyPackageJSON(application_path)];
-                case 4:
-                    main_script_path = _f.sent();
+                case 2:
+                    main_script_path = _b.sent();
                     return [4 /*yield*/, writeApplication(application_path, main_script_path, port)];
-                case 5:
-                    _f.sent();
+                case 3:
+                    _b.sent();
                     return [2 /*return*/];
             }
         });
