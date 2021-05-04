@@ -60,7 +60,7 @@ var path_1 = require("path");
 var fs_1 = require("fs");
 var process_1 = require("process");
 function getTemplate(port, main_script_path) {
-    return "\n    const express = require('express');\n    const PORT = process.env.PORT || " + port + ";\n    const main = require('" + (main_script_path.startsWith('./') ? main_script_path : ('./' + main_script_path)) + "');\n\n    express()\n        .get('/', (req, res) => res.sendStatus(200))\n        .listen(PORT, () => console.log('Listening on ' + PORT));\n    ";
+    return "\nconst express = require('express');\nconst process = require('process');\nconst PORT = process.env.PORT || " + port + ";\n\n(async () => { require('" + (main_script_path.startsWith('./') ? main_script_path : ('./' + main_script_path)) + "'); })();\n\nexpress()\n    .get('/', (req, res) => res.sendStatus(200))\n    .listen(PORT, () => console.log('Listening on ' + PORT));\n";
 }
 function getInputs() {
     var application_path = core.getInput('application-path');

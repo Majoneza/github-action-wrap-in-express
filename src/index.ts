@@ -5,14 +5,16 @@ import {env} from 'process';
 
 function getTemplate(port: number, main_script_path: string): string {
     return `
-    const express = require('express');
-    const PORT = process.env.PORT || ${port};
-    const main = require('${main_script_path.startsWith('./') ? main_script_path : ('./' + main_script_path)}');
+const express = require('express');
+const process = require('process');
+const PORT = process.env.PORT || ${port};
 
-    express()
-        .get('/', (req, res) => res.sendStatus(200))
-        .listen(PORT, () => console.log('Listening on ' + PORT));
-    `;
+(async () => { require('${main_script_path.startsWith('./') ? main_script_path : ('./' + main_script_path)}'); })();
+
+express()
+    .get('/', (req, res) => res.sendStatus(200))
+    .listen(PORT, () => console.log('Listening on ' + PORT));
+`;
 }
 
 function getInputs(): [application_path: string, port: number] {
