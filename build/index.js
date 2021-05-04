@@ -57,7 +57,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core = __importStar(require("@actions/core"));
 var path_1 = require("path");
-var promises_1 = require("fs/promises");
+var fs_1 = require("fs");
 function getTemplate(port, main_script_path) {
     return "\n    const express = require('express');\n    const PORT = process.env.PORT || " + port + ";\n    const main = require('" + (main_script_path.startsWith('./') ? main_script_path : ('./' + main_script_path)) + "');\n\n    express()\n        .get('/', (req, res) => res.sendStatus(200))\n        .listen(PORT, () => console.log('Listening on ' + PORT));\n    ";
 }
@@ -76,7 +76,7 @@ function checkRepository(application_path) {
         var dirs;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, promises_1.readdir(path_1.join(__dirname, application_path))];
+                case 0: return [4 /*yield*/, fs_1.promises.readdir(path_1.join(__dirname, application_path))];
                 case 1:
                     dirs = _a.sent();
                     if (dirs.findIndex(function (value) { return value === 'package.json'; }) === -1) {
@@ -97,7 +97,7 @@ function modifyPackageJSON(application_path) {
             switch (_c.label) {
                 case 0:
                     _b = (_a = JSON).parse;
-                    return [4 /*yield*/, promises_1.readFile(path_1.join(__dirname, application_path, 'package.json'), { encoding: 'utf-8', flag: 'r' })];
+                    return [4 /*yield*/, fs_1.promises.readFile(path_1.join(__dirname, application_path, 'package.json'), { encoding: 'utf-8', flag: 'r' })];
                 case 1:
                     packagejson = _b.apply(_a, [_c.sent()]);
                     if (!('main' in packagejson && 'dependencies' in packagejson)) {
@@ -108,7 +108,7 @@ function modifyPackageJSON(application_path) {
                     if (!('express' in packagejson.dependencies)) {
                         packagejson.dependencies['express'] = '^4.15.2'; // Enable setting express version
                     }
-                    return [4 /*yield*/, promises_1.writeFile(path_1.join(__dirname, application_path, 'package.json'), JSON.stringify(packagejson), { encoding: 'utf-8', flag: 'w' })];
+                    return [4 /*yield*/, fs_1.promises.writeFile(path_1.join(__dirname, application_path, 'package.json'), JSON.stringify(packagejson), { encoding: 'utf-8', flag: 'w' })];
                 case 2:
                     _c.sent();
                     return [2 /*return*/, main_script_path];
@@ -123,7 +123,7 @@ function writeApplication(application_path, main_script_path, port) {
             switch (_a.label) {
                 case 0:
                     template = getTemplate(port, main_script_path);
-                    return [4 /*yield*/, promises_1.writeFile(path_1.join(__dirname, application_path, 'index.js'), template, { encoding: 'utf-8', flag: 'x' })];
+                    return [4 /*yield*/, fs_1.promises.writeFile(path_1.join(__dirname, application_path, 'index.js'), template, { encoding: 'utf-8', flag: 'x' })];
                 case 1:
                     _a.sent();
                     return [2 /*return*/];
