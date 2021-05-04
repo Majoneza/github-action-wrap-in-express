@@ -133,20 +133,30 @@ function writeApplication(application_path, main_script_path, port) {
 }
 function main() {
     return __awaiter(this, void 0, void 0, function () {
-        var _a, application_path, port, main_script_path;
-        return __generator(this, function (_b) {
-            switch (_b.label) {
+        var _a, _b, _c, _d, _e, application_path, port, main_script_path;
+        return __generator(this, function (_f) {
+            switch (_f.label) {
                 case 0:
-                    _a = getInputs(), application_path = _a[0], port = _a[1];
-                    return [4 /*yield*/, checkRepository(application_path)];
+                    core.info(__dirname);
+                    core.info(__filename);
+                    _b = (_a = core).info;
+                    return [4 /*yield*/, fs_1.promises.readdir(__dirname)];
                 case 1:
-                    _b.sent(); // Can be removed
-                    return [4 /*yield*/, modifyPackageJSON(application_path)];
+                    _b.apply(_a, [(_f.sent()).join(', ')]);
+                    _d = (_c = core).info;
+                    return [4 /*yield*/, fs_1.promises.readdir('')];
                 case 2:
-                    main_script_path = _b.sent();
-                    return [4 /*yield*/, writeApplication(application_path, main_script_path, port)];
+                    _d.apply(_c, [(_f.sent()).join(', ')]);
+                    _e = getInputs(), application_path = _e[0], port = _e[1];
+                    return [4 /*yield*/, checkRepository(application_path)];
                 case 3:
-                    _b.sent();
+                    _f.sent(); // Can be removed
+                    return [4 /*yield*/, modifyPackageJSON(application_path)];
+                case 4:
+                    main_script_path = _f.sent();
+                    return [4 /*yield*/, writeApplication(application_path, main_script_path, port)];
+                case 5:
+                    _f.sent();
                     return [2 /*return*/];
             }
         });

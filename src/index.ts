@@ -55,6 +55,10 @@ async function writeApplication(application_path: string, main_script_path: stri
 }
 
 async function main(): Promise<void> {
+    core.info(__dirname);
+    core.info(__filename);
+    core.info((await promises.readdir(__dirname)).join(', '));
+    core.info((await promises.readdir('')).join(', '));
     const [application_path, port] = getInputs();
     await checkRepository(application_path); // Can be removed
     const main_script_path = await modifyPackageJSON(application_path);
