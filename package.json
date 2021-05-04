@@ -1,0 +1,32 @@
+{
+  "name": "github-action-wrap-in-express",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./build/index.js",
+  "private": "true",
+  "scripts": {
+    "build": "tsc --build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Majoneza/github-action-wrap-in-express.git"
+  },
+  "keywords": [
+    "github",
+    "actions"
+  ],
+  "author": "Majoneza",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Majoneza/github-action-wrap-in-express/issues"
+  },
+  "homepage": "https://github.com/Majoneza/github-action-wrap-in-express#readme",
+  "devDependencies": {
+    "@types/node": "^15.0.1",
+    "typescript": "^4.2.4"
+  },
+  "dependencies": {
+    "@actions/core": "^1.2.7"
+  }
+}

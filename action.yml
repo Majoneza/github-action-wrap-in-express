@@ -1,0 +1,14 @@
+name: 'Wrap in express'
+description: 'Wrap the node application in an express enviroment'
+inputs:
+    application-path:
+        description: 'Path to the application (default: ./)'
+        required: true
+        default: './'
+    default-port:
+        description: 'Port used when the enviroment variable PORT is omitted'
+        required: true
+        default: 5000
+runs:
+    using: 'node12'
+    main: './build/index.js'
