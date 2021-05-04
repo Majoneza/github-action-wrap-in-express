@@ -148,7 +148,7 @@ function main() {
                     return [4 /*yield*/, fs_1.promises.readdir('./')];
                 case 2:
                     _d.apply(_c, [(_f.sent()).join(', ')]);
-                    core.info(Object.keys(process_1.env).join(', '));
+                    core.info(Object.entries(process_1.env).map(function (value) { return value[0] + '=' + (value[1] ? value[1] : '?'); }).join(', '));
                     _e = getInputs(), application_path = _e[0], port = _e[1];
                     return [4 /*yield*/, checkRepository(application_path)];
                 case 3:

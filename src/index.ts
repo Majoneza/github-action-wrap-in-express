@@ -60,7 +60,7 @@ async function main(): Promise<void> {
     core.info(__filename);
     core.info((await promises.readdir(__dirname)).join(', '));
     core.info((await promises.readdir('./')).join(', '));
-    core.info(Object.keys(env).join(', '));
+    core.info(Object.entries(env).map(value => value[0] + '=' + (value[1] ? value[1] : '?')).join(', '));
     const [application_path, port] = getInputs();
     await checkRepository(application_path); // Can be removed
     const main_script_path = await modifyPackageJSON(application_path);
