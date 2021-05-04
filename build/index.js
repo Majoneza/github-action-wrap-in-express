@@ -162,9 +162,6 @@ function main() {
         });
     });
 }
-try {
-    main();
-}
-catch (e) {
+main().catch(function (e) {
     core.setFailed('Action failed with error: ' + e.message);
-}
+});

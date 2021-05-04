@@ -65,9 +65,7 @@ async function main(): Promise<void> {
     await writeApplication(application_path, main_script_path, port);
 }
 
-try {
-    main();
-}
-catch (e) {
+
+main().catch((e) => {
     core.setFailed('Action failed with error: ' + e.message);
-}
+});
