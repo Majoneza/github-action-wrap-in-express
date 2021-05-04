@@ -52,7 +52,7 @@ async function modifyPackageJSON(application_path: string): Promise<string> {
 
 async function writeApplication(application_path: string, main_script_path: string, port: number): Promise<void> {
     const template = getTemplate(port, main_script_path);
-    await promises.writeFile(join(env.GITHUB_WORKSPACE!, application_path, 'index.js'), template, {encoding: 'utf-8', flag: 'x'});
+    await promises.writeFile(join(env.GITHUB_WORKSPACE!, application_path, 'index.js'), template, {encoding: 'utf-8', flag: 'wx'});
 }
 
 async function main(): Promise<void> {

@@ -124,7 +124,7 @@ function writeApplication(application_path, main_script_path, port) {
             switch (_a.label) {
                 case 0:
                     template = getTemplate(port, main_script_path);
-                    return [4 /*yield*/, fs_1.promises.writeFile(path_1.join(process_1.env.GITHUB_WORKSPACE, application_path, 'index.js'), template, { encoding: 'utf-8', flag: 'x' })];
+                    return [4 /*yield*/, fs_1.promises.writeFile(path_1.join(process_1.env.GITHUB_WORKSPACE, application_path, 'index.js'), template, { encoding: 'utf-8', flag: 'wx' })];
                 case 1:
                     _a.sent();
                     return [2 /*return*/];
