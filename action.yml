@@ -10,5 +10,5 @@ inputs:
         required: true
         default: 5000
 runs:
-    using: 'node12'
+    using: 'node14'
     main: './build/index.js'
