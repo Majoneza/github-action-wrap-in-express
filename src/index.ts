@@ -8,8 +8,14 @@ function getTemplate(port: number, main_script_path: string): string {
 const express = require('express');
 const process = require('process');
 const PORT = process.env.PORT || ${port};
+const { Worker } = require('worker_threads');
 
-(async () => { require('${main_script_path.startsWith('./') ? main_script_path : ('./' + main_script_path)}'); })();
+const worker = new Worker('${main_script_path.startsWith('./') ? main_script_path : ('./' + main_script_path)}');
+worker.on('message', (m) => console.log('Worker message: ' + m));
+worker.on('error', (e) => console.log('Worker error: ' + e));
+worker.on('exit', (code) => {
+	console.log('Worker exited with code: ' + code);
+});
 
 express()
     .get('/', (req, res) => res.sendStatus(200))
