@@ -8,7 +8,7 @@ inputs:
     default-port:
         description: 'Port used when the enviroment variable PORT is omitted'
         required: true
-        default: 5000
+        default: 8080
 runs:
     using: 'node12'
     main: './build/index.js'
