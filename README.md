@@ -13,7 +13,8 @@ This action wraps the specified program with express.
 **Required** Port used when process.env.PORT is not defined. Default `8080`.
 
 ## Example usage
-
+```
 uses: Majoneza/github-action-wrap-in-express@v1
 with:
   default-port: 10000
+```
