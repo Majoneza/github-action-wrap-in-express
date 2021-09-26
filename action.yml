@@ -1,12 +1,12 @@
 name: 'Wrap in express'
-description: 'Wrap the node application in an express enviroment'
+description: 'Wrap the node application in an express environment'
 inputs:
     application-path:
         description: 'Path to the application (default: ./)'
         required: true
         default: './'
     default-port:
-        description: 'Port used when the enviroment variable PORT is omitted'
+        description: 'Port used when the environment variable PORT is omitted'
         required: true
         default: 8080
 runs:
