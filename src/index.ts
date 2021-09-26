@@ -24,9 +24,9 @@ express()
 }
 
 function getInputs(): [application_path: string, port: number] {
-    const application_path = core.getInput('application-path');
+    const application_path = core.getInput('application-path', {required: true});
     try {
-        const port = parseInt(core.getInput('default-port'), 10);
+        const port = parseInt(core.getInput('default-port', {required: true}), 10);
         return [application_path, port];
     }
     catch (e) {
