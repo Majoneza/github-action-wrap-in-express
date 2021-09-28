@@ -60,12 +60,12 @@ var path_1 = require("path");
 var fs_1 = require("fs");
 var process_1 = require("process");
 function getTemplate(port, main_script_path) {
-    return "\nconst express = require('express');\nconst process = require('process');\nconst PORT = process.env.PORT || " + port + ";\nconst { Worker } = require('worker_threads');\n\nconst worker = new Worker('" + (main_script_path.startsWith('./') ? main_script_path : ('./' + main_script_path)) + "');\nworker.on('message', (m) => console.log('Worker message: ' + m));\nworker.on('error', (e) => console.log('Worker error: ' + e));\nworker.on('exit', (code) => {\n\tconsole.log('Worker exited with code: ' + code);\n});\n\nexpress()\n    .get('/', (req, res) => res.sendStatus(200))\n    .listen(PORT, () => console.log('Listening on ' + PORT));\n";
+    return "const express = require('express');\nconst process = require('process');\nconst PORT = process.env.PORT || " + port + ";\nconst { Worker } = require('worker_threads');\n\nconst worker = new Worker('" + (main_script_path.startsWith('./') ? main_script_path : ('./' + main_script_path)) + "');\nworker.on('message', (m) => console.log('Worker message: ' + m));\nworker.on('error', (e) => console.log('Worker error: ' + e));\nworker.on('exit', (code) => {\n\tconsole.log('Worker exited with code: ' + code);\n});\n\nexpress()\n    .get('/', (req, res) => res.sendStatus(200))\n    .listen(PORT, () => console.log('Listening on ' + PORT));\n";
 }
 function getInputs() {
-    var application_path = core.getInput('application-path');
+    var application_path = core.getInput('application-path', { required: true });
     try {
-        var port = parseInt(core.getInput('default-port'), 10);
+        var port = parseInt(core.getInput('default-port', { required: true }), 10);
         return [application_path, port];
     }
     catch (e) {
@@ -77,7 +77,7 @@ function checkRepository(application_path) {
         var dirs;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, fs_1.promises.readdir(path_1.join(process_1.env.GITHUB_WORKSPACE, application_path))];
+                case 0: return [4 /*yield*/, fs_1.promises.readdir((0, path_1.join)(process_1.env.GITHUB_WORKSPACE, application_path))];
                 case 1:
                     dirs = _a.sent();
                     if (dirs.findIndex(function (value) { return value === 'package.json'; }) === -1) {
@@ -98,7 +98,7 @@ function modifyPackageJSON(application_path) {
             switch (_c.label) {
                 case 0:
                     _b = (_a = JSON).parse;
-                    return [4 /*yield*/, fs_1.promises.readFile(path_1.join(process_1.env.GITHUB_WORKSPACE, application_path, 'package.json'), { encoding: 'utf-8', flag: 'r' })];
+                    return [4 /*yield*/, fs_1.promises.readFile((0, path_1.join)(process_1.env.GITHUB_WORKSPACE, application_path, 'package.json'), { encoding: 'utf-8', flag: 'r' })];
                 case 1:
                     packagejson = _b.apply(_a, [_c.sent()]);
                     if (!('main' in packagejson && 'dependencies' in packagejson)) {
@@ -109,7 +109,7 @@ function modifyPackageJSON(application_path) {
                     if (!('express' in packagejson.dependencies)) {
                         packagejson.dependencies['express'] = '^4.15.2'; // Enable setting express version
                     }
-                    return [4 /*yield*/, fs_1.promises.writeFile(path_1.join(process_1.env.GITHUB_WORKSPACE, application_path, 'package.json'), JSON.stringify(packagejson), { encoding: 'utf-8', flag: 'w' })];
+                    return [4 /*yield*/, fs_1.promises.writeFile((0, path_1.join)(process_1.env.GITHUB_WORKSPACE, application_path, 'package.json'), JSON.stringify(packagejson), { encoding: 'utf-8', flag: 'w' })];
                 case 2:
                     _c.sent();
                     return [2 /*return*/, main_script_path];
@@ -124,7 +124,7 @@ function writeApplication(application_path, main_script_path, port) {
             switch (_a.label) {
                 case 0:
                     template = getTemplate(port, main_script_path);
-                    return [4 /*yield*/, fs_1.promises.writeFile(path_1.join(process_1.env.GITHUB_WORKSPACE, application_path, 'index.js'), template, { encoding: 'utf-8', flag: 'wx' })];
+                    return [4 /*yield*/, fs_1.promises.writeFile((0, path_1.join)(process_1.env.GITHUB_WORKSPACE, application_path, 'index.js'), template, { encoding: 'utf-8', flag: 'wx' })];
                 case 1:
                     _a.sent();
                     return [2 /*return*/];

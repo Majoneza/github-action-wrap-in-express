@@ -10,5 +10,5 @@ inputs:
         required: true
         default: 8080
 runs:
-    using: 'node12'
+    using: 'node15'
     main: './build/index.js'

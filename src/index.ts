@@ -4,8 +4,7 @@ import {promises} from 'fs';
 import {env} from 'process';
 
 function getTemplate(port: number, main_script_path: string): string {
-    return `
-const express = require('express');
+    return `const express = require('express');
 const process = require('process');
 const PORT = process.env.PORT || ${port};
 const { Worker } = require('worker_threads');
